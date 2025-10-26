@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>staystaystaystaystaystaystaystaystay</title>
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      font-family: monospace;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    #message {
+      font-size: 24px;
+      white-space: pre-line;
+      display: inline-block;
+      border-right: 2px solid white;
+      padding-right: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div id="message"></div>
+
+  <script>
+    const fullText = "what hurt you? why did it save you? https://linktr.ee/shelterinlight";
+    const minDelay = 10000;
+    const maxDelay = 30000;
+    const delay = Math.random() * (maxDelay - minDelay) + minDelay;
+
+    function typeText(text, elementId, speed = 100) {
+      let i = 0;
+      const element = document.getElementById(elementId);
+      const typing = setInterval(() => {
+        element.textContent += text.charAt(i);
+        i++;
+        if (i >= text.length) {
+          clearInterval(typing);
+          element.style.borderRight = "none";
+        }
+      }, speed);
+    }
+
+    setTimeout(() => {
+      typeText(fullText, "message");
+    }, delay);
+  </script>
+</body>
+</html>

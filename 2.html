@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>shrivelled</title>
+  <style>
+    body {
+      margin: 0;
+      background: black;
+      color: white;
+      font-family: monospace;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      z-index: 10;
+    }
+
+    img {
+      position: absolute;
+      max-width: 200px;
+      max-height: 200px;
+      cursor: pointer;
+      z-index: 5;
+    }
+  </style>
+</head>
+<body>
+  <p>were these the words you waited for?</p>
+  <a id="imageLink" href="https://cdn.glitch.global/19a8ed66-a17f-436d-8d83-2a73de1deeca/cipher.PNG?v=1744097484904">
+    <img id="randomImage" src="https://cdn.glitch.global/19a8ed66-a17f-436d-8d83-2a73de1deeca/newfind.PNG?v=1744134219658" alt="Random" />
+  </a>
+
+  <script>
+    const image = document.getElementById('randomImage');
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+
+    const randomX = Math.floor(Math.random() * (vw - 200)); // Adjust for image width
+    const randomY = Math.floor(Math.random() * (vh - 200)); // Adjust for image height
+
+    image.style.left = `${randomX}px`;
+    image.style.top = `${randomY}px`;
+  </script>
+</body>
+</html>

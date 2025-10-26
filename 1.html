@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>linger</title>
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      font-family: monospace;
+      margin: 0;
+      padding: 0;
+      height: 100000px; 
+      position: relative;
+    }
+
+    .hidden-text {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 8px;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="hidden-text" id="message">devadevidevu@gmail.com</div>
+
+  <script>
+    
+    const randomTop = Math.floor(Math.random() * (98000 - 2000)) + 2000;
+    document.getElementById("message").style.top = `${randomTop}px`;
+  </script>
+</body>
+</html>
+

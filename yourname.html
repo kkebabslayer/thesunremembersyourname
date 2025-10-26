@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>remember</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: black;
+      color: white;
+      font-family: monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #maze {
+      display: grid;
+      grid-template-columns: repeat(10, 30px);
+      grid-template-rows: repeat(10, 30px);
+      gap: 2px;
+      margin-top: 20px;
+      position: relative;
+    }
+
+    .cell {
+      width: 30px;
+      height: 30px;
+      background-color: #111;
+      border: 1px solid #333;
+    }
+
+    .wall {
+      background-color: #444;
+    }
+
+    .player {
+      background-color: lime;
+    }
+
+    .goal {
+      background-color: gold;
+    }
+
+    #controls {
+      margin-top: 20px;
+    }
+
+    button {
+      background: #222;
+      color: white;
+      border: 1px solid #555;
+      font-size: 18px;
+      padding: 10px;
+      margin: 5px;
+      cursor: pointer;
+    }
+
+    #jumpscare {
+      position: absolute;
+      width: 100vw;
+      height: 100vh;
+      background: black;
+      top: 0;
+      left: 0;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+    }
+
+    #jumpscare img {
+      width: 50%;
+      animation: fade 0.5s ease-in-out;
+    }
+
+    @keyframes fade {
+      from { opacity: 0; transform: scale(1.2); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    #finishMessage {
+      margin-top: 20px;
+      font-size: 20px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h2>do you remember your name?</h2>
+  <div id="maze"></div>
+
+  <div id="controls">
+    <button onclick="move('up')">↑</button><br />
+    <button onclick="move('left')">←</button>
+    <button onclick="move('down')">↓</button>
+    <button onclick="move('right')">→</button>
+  </div>
+
+  <div id="jumpscare">
+    <img src="https://cdn.glitch.global/19a8ed66-a17f-436d-8d83-2a73de1deeca/the%20door.PNG?v=1744695125603" width="100">
+  </div>
+
+  <div id="finishMessage">https://thesunremembersyourname.glitch.me/frankinsence.html
+</div>
+
+  <script>
+    const maze = [
+      "##########",
+      "#        #",
+      "# ###### #",
+      "# #    # #",
+      "# # ## # #",
+      "# # ## # #",
+      "# #    # #",
+      "# ###### #",
+      "#        #",
+      "########G#"
+    ];
+
+    const mazeEl = document.getElementById('maze');
+    let playerPos = { x: 1, y: 1 };
+
+    function drawMaze() {
+      mazeEl.innerHTML = '';
+      for (let y = 0; y < maze.length; y++) {
+        for (let x = 0; x < maze[y].length; x++) {
+          const cell = document.createElement('div');
+          cell.classList.add('cell');
+          if (maze[y][x] === '#') cell.classList.add('wall');
+          if (x === playerPos.x && y === playerPos.y) {
+            cell.classList.add('player');
+          }
+          if (maze[y][x] === 'G') {
+            cell.classList.add('goal');
+          }
+          mazeEl.appendChild(cell);
+        }
+      }
+    }
+
+    function move(dir) {
+      const { x, y } = playerPos;
+      let newX = x, newY = y;
+
+      if (dir === 'up') newY--;
+      if (dir === 'down') newY++;
+      if (dir === 'left') newX--;
+      if (dir === 'right') newX++;
+
+      if (maze[newY][newX] !== '#') {
+        playerPos = { x: newX, y: newY };
+        drawMaze();
+        checkGoal();
+      }
+    }
+
+    function checkGoal() {
+      if (maze[playerPos.y][playerPos.x] === 'G') {
+        document.getElementById('finishMessage').style.display = 'block';
+      }
+    }
+
+    function triggerJumpscare() {
+      const jumpscare = document.getElementById('jumpscare');
+      jumpscare.style.display = 'flex';
+      setTimeout(() => {
+        jumpscare.style.display = 'none';
+      }, 2000);
+    }
+
+    // Trigger jumpscare randomly after 3 seconds
+    setTimeout(() => {
+      triggerJumpscare();
+    }, 3000 + Math.random() * 2000); // Between 3-5 seconds
+
+    drawMaze();
+  </script>
+</body>
+</html>
+
+

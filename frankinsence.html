@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Dearest</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+      background-color: black;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-family: monospace;
+      transition: background-color 2s ease;
+      overflow: hidden;
+    }
+
+    #topText {
+      color: white;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    #inputBox {
+      background: black;
+      border: 2px solid #fff;
+      padding: 15px;
+      font-size: 20px;
+      color: white;
+      text-align: center;
+      outline: none;
+    }
+
+    #fadeContent {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background-color: white;
+      color: black;
+      font-family: Georgia, 'Palatino Linotype', serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 2.5s ease;
+      pointer-events: none;
+    }
+
+    #centerText {
+      font-size: 28px;
+      margin-bottom: 50px;
+      text-align: center;
+    }
+
+    #bottomText {
+      position: absolute;
+      bottom: 30px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="topText">my dearest</div>
+  <input type="text" id="inputBox" placeholder="">
+
+  <div id="fadeContent">
+    <div id="centerText">the sun remembers your name, leucothoe</div>
+    <div id="bottomText">fin.</div>
+  </div>
+
+  <script>
+    const input = document.getElementById("inputBox");
+    const fadeContent = document.getElementById("fadeContent");
+
+    input.addEventListener("keydown", function(e) {
+      if (e.key === "Enter") {
+        const val = input.value.trim().toLowerCase();
+        if (val === "leucothoe") {
+          fadeContent.style.opacity = 1;
+          input.style.display = "none";
+          document.getElementById("topText").style.display = "none";
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,84 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ton nom</title>
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      font-family: monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    #inputBox {
+      background-color: black;
+      border: 1px solid white;
+      color: white;
+      font-family: monospace;
+      font-size: 18px;
+      padding: 10px;
+      margin: 15px 0;
+    }
+
+    #topText, #bottomText {
+      margin: 10px 0;
+    }
+
+    #imageBox {
+      margin-top: 10px;
+    }
+
+    #newText {
+      display: none;
+      font-size: 20px;
+      color: white;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div id="topText"></div>
+  <input type="text" id="inputBox" placeholder="..." onkeydown="checkAnswer(event)">
+  <div id="imageBox">
+    <img src="https://cdn.glitch.global/19a8ed66-a17f-436d-8d83-2a73de1deeca/named.PNG?v=1744632706827" width="900">
+  </div>
+  <div id="bottomText">Ce lieu, où commence ton titre 
+ Compte les souvenirs. Continue de compter. </div>
+  <div id="newText">"ɔθ"(translate a piece of your name. the second piece. you are the third.)</div>
+  <div id="errorText" style="margin-top: 10px; color: red; display: none;">coordonnées</div>
+
+
+  <script>
+  function normalizeInput(str) {
+    return str
+      .toLowerCase()
+      .replace(/\s+/g, '')         // remove all whitespace
+      .replace(/°/g, '');          // remove degree symbols
+  }
+
+  function checkAnswer(e) {
+    if (e.key === "Enter") {
+      const input = document.getElementById("inputBox").value;
+      const normalizedInput = normalizeInput(input);
+      const expected = normalizeInput("43.1458° N, 2.3225° E");
+
+      if (normalizedInput === expected) {
+        document.getElementById("topText").style.display = "none";
+        document.getElementById("bottomText").style.display = "none";
+        document.getElementById("inputBox").style.display = "none";
+        document.getElementById("imageBox").style.display = "none";
+        document.getElementById("newText").style.display = "block";
+        document.getElementById("errorText").style.display = "none"; // hide error if previously shown
+      } else {
+        document.getElementById("errorText").style.display = "block";
+      }
+    }
+  }
+  </script>
+</body>
+</html>

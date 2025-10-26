@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>the safest place</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      background-color: #c9fcd2;
+      font-family: monospace;
+      position: relative;
+    }
+
+    h1, p {
+      color: #305030;
+      z-index: 10;
+      text-align: center;
+      margin: 10px 0;
+    }
+
+    input {
+      padding: 10px;
+      font-family:monospace ;
+      font-size: 16px;
+      z-index: 10;
+      border: 1px solid #305030;
+      background: #f0fff0;
+      color: #305030;
+    }
+
+    .flower {
+      position: absolute;
+      width: 50px;
+      height: auto;
+      pointer-events: none;
+      opacity: 0.8;
+    }
+
+    .centered-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      z-index: 10;
+    }
+
+    #glitchText {
+      font-size: 28px;
+      font-weight: bold;
+      color: white;
+      text-align: center;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      white-space: nowrap;
+      animation: glitchyText 0.2s infinite;
+      display: none;
+      z-index: 999;
+    }
+
+     @keyframes glitchyText {
+    0%   { transform: translate(-50%, -50%) translateX(-2px); }
+    25%  { transform: translate(-50%, -50%) translateX(3px) rotate(1deg); }
+    50%  { transform: translate(-50%, -50%) translateY(2px); }
+    75%  { transform: translate(-50%, -50%) translateX(-3px) rotate(-1deg); }
+    100% { transform: translate(-50%, -50%) translateY(-2px); }
+  }
+
+  @keyframes glitchyTextWorse {
+    0%   { transform: translate(-50%, -50%) translate(0, 0); }
+    20%  { transform: translate(-50%, -50%) translate(5px, -5px) rotate(2deg); }
+    40%  { transform: translate(-50%, -50%) translate(-7px, 6px) rotate(-2deg); }
+    60%  { transform: translate(-50%, -50%) translate(8px, -4px); }
+    80%  { transform: translate(-50%, -50%) translate(-9px, 8px) rotate(3deg); }
+    100% { transform: translate(-50%, -50%) translate(0, 0); }
+  }
+
+  @keyframes wander {
+    0%   { top: 50%; left: 50%; }
+    25%  { top: 45%; left: 60%; }
+    50%  { top: 55%; left: 40%; }
+    75%  { top: 52%; left: 58%; }
+    100% { top: 50%; left: 50%; }
+  }
+  </style>
+</head>
+<body>
+  <div class="centered-content" id="mainContent">
+    <h1</h1>
+    <p>dots and dashes - death disappears!</p>
+    <input type="text" id="answer" placeholder="" onkeydown="checkInput(event)">
+  </div>
+
+  <div id="glitchText">were her broad pastures a refuge or an apology?</div>
+
+  <script>
+    const flowerImageURL = "https://cdn.glitch.global/19a8ed66-a17f-436d-8d83-2a73de1deeca/flower.png?v=1744307987586";
+
+    function createFlowerPattern() {
+      const spacingX = 60;
+      const spacingY = 60;
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      const cols = Math.ceil(width / spacingX);
+      const rows = Math.ceil(height / spacingY);
+
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+          const flower = document.createElement("img");
+          flower.src = flowerImageURL;
+          flower.className = "flower";
+          flower.style.left = `${c * spacingX}px`;
+          flower.style.top = `${r * spacingY}px`;
+          document.body.appendChild(flower);
+        }
+      }
+    }
+
+    createFlowerPattern();
+
+  function checkInput(e) {
+    if (e.key === "Enter") {
+      const val = document.getElementById("answer").value.trim().toLowerCase();
+      if (val === "l9"||val === "L9") {
+        document.body.style.backgroundColor = "black";
+        document.querySelectorAll(".flower").forEach(f => f.remove());
+        document.getElementById("mainContent").remove();
+
+        const glitchText = document.getElementById("glitchText");
+        glitchText.style.display = "block";
+
+      
+        setTimeout(() => {
+          glitchText.style.animation = "glitchyTextWorse 0.2s infinite";
+        }, 4000);
+
+   
+        setTimeout(() => {
+          glitchText.style.animation = "glitchyTextWorse 0.15s infinite, wander 6s infinite alternate";
+        }, 8000);
+      }
+    }
+  }
+  </script>
+</body>
+</html>
+
